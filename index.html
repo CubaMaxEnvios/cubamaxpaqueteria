@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CubaMax</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa; /* Gris azulado muy claro */
+      color: #2d3436; /* Gris oscuro para texto principal */
+      font-size: 16px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6c5ce7, #8c7ae6); /* Degradado morado */
+      color: white;
+      padding: 30px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      border-bottom: 4px solid #5d4ac9; /* Morado más oscuro */
+    }
+
+    #inicio {
+      background-image: linear-gradient(rgba(108, 92, 231, 0.7), rgba(108, 92, 231, 0.7)), url('descargar.png');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Menú principal */
+    .menu-principal {
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .menu-principal a {
+      color: #2d3436;
+      text-decoration: none;
+      padding: 13px 25px;
+      font-size: 18px;
+      margin: 0 10px;
+      border-radius: 4px;
+      transition: 0.3s;
+      background: rgba(108, 92, 231, 0.08);
+      border: 1px solid rgba(108, 92, 231, 0.2);
+    }
+    .menu-principal a:hover {
+      background: rgba(108, 92, 231, 0.2);
+      color: #6c5ce7;
+      transform: scale(1.05);
+    }
+
+    /* Menú de secciones */
+    .menu-secciones {
+      display: flex;
+      justify-content: center;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .menu-secciones a {
+      color: #2d3436;
+      text-decoration: none;
+      padding: 13px 25px;
+      font-size: 18px;
+      margin: 0 10px;
+      border-radius: 4px;
+      transition: 0.3s;
+      background: rgba(108, 92, 231, 0.08);
+      border: 1px solid rgba(108, 92, 231, 0.2);
+    }
+    .menu-secciones a:hover {
+      background: rgba(108, 92, 231, 0.2);
+      color: #6c5ce7;
+      transform: scale(1.05);
+    }
+
+    .barra-mensaje {
+      background: linear-gradient(135deg, #0984e3, #74b9ff); /* Degradado azul */
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mensaje {
+      position: absolute;
+      left: 100%;
+      animation: moverMensaje 12s linear infinite;
+    }
+    @keyframes moverMensaje {
+      0% { left: 100%; }
+      100% { left: -100%; }
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      background: #ffffff;
+      margin-top: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    section h2 {
+      font-size: 34px;
+      color: #6c5ce7;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #6c5ce7, #a29bfe);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    section p {
+      font-size: 18px;
+      color: #636e72; /* Gris medio para texto */
+      line-height: 1.6;
+    }
+
+    .productos-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      justify-items: center;
+      margin: 0 auto;
+    }
+
+    .producto {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      width: 280px;
+      height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid #f1f1f1;
+    }
+
+    .producto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .producto img:hover {
+      transform: scale(1.1);
+    }
+
+    .precio {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #00b894; /* Verde esmeralda */
+    }
+
+    .botones {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .botones button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .botones button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .agregar-carrito {
+      background: linear-gradient(135deg, #00b894, #55efc4); /* Degradado verde */
+      color: white;
+    }
+
+    .agregar-carrito:hover {
+      background: linear-gradient(135deg, #00997b, #00b894);
+    }
+
+    .detalles {
+      background: linear-gradient(135deg, #fdcb6e, #ffeaa7); /* Degradado amarillo */
+      color: #2d3436;
+    }
+
+    .detalles:hover {
+      background: linear-gradient(135deg, #e8a93e, #fdcb6e);
+    }
+
+    /* Estilos para el modal de detalles */
+    .cartel-detalles {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.3s forwards;
+      width: 90%;
+      max-width: 400px;
+      font-size: 16px;
+      border: 1px solid #f1f1f1;
+    }
+
+    .cartel-detalles h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #6c5ce7;
+    }
+
+    .cartel-detalles p {
+      font-size: 18px;
+      color: #636e72;
+      line-height: 1.6;
+    }
+
+    .cartel-detalles button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      border: none;
+      background: linear-gradient(135deg, #ff7675, #fd79a8); /* Degradado rojo/rosado */
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .cartel-detalles button:hover {
+      background: linear-gradient(135deg, #d63031, #e84393);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para el footer */
+    footer {
+      background: linear-gradient(135deg, #6c5ce7, #8c7ae6);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      margin-top: 40px;
+      border-top: 4px solid #5d4ac9;
+      box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      font-size: 18px;
+      margin: 0;
+      color: white;
+    }
+
+    footer a {
+      color: #fdcb6e;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      color: #ffeaa7;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      /* (Mantener los mismos estilos responsive que antes) */
+    }
+
+    @media screen and (max-width: 480px) {
+      /* (Mantener los mismos estilos responsive que antes) */
+    }
+</style>
+</head>
+<body>
+  <!-- Menú principal -->
+  <nav class="menu-principal">
+    <a href="index.html">Shop</a>
+    <a href="sobre-nosotros.html">Remesas</a>
+    <a href="calculadora.html">Carrito</a>
+  </nav>
+  
+  <div class="barra-mensaje">
+    <span class="mensaje">¡Aprovecha un 15% de descuento en tu envío! 📦 Envíos rápidos y seguros a Cuba.</span>
+  </div>
+  
+  <main>
+    <section id="inicio">
+      <h2>Bienvenido a CubaMax</h2>
+      <p>Enviamos tus paquetes a Cuba de manera rápida y segura.</p>
+    </section>
+  
+    <!-- Menú de secciones -->
+    <section id="menu">
+      <nav class="menu-secciones">
+        <a href="#alimentos">Alimentos</a>
+        <a href="#combos">Electronicos</a>
+        <a href="#vehiculos">Vehículos</a>
+      </nav>
+    </section>
+  
+    <section id="productos">
+      <h2>P R O D U C T O S </h2>
+      
+      <div class="productos-container">
+         
+     
+             
+            <!-- Saco de Arroz (25kg) -->
+            <div class="producto" data-nombre="Saco de Arroz (50kg) Arroz de alta calidad, seleccionado y empacado para garantizar frescura y sabor. Ideal para preparar platos tradicionales con un grano suelto y consistente." data-precio="55 USD" data-info="Arroz de alta calidad, seleccionado y empacado para garantizar frescura y sabor. Ideal para preparar platos tradicionales con un grano suelto y consistente." id="alimentos">
+              <img src="FB_IMG_1740937167535.jpg" alt="Saco de Arroz (50kg)">
+              <div class="precio">$55.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Saco de Harina (25kg) -->
+            <div class="producto" data-nombre="Harina de trigo refinada y de calidad premium, ideal para panadería, repostería y cocina en general. Asegura una textura suave y esponjosa en todas tus recetas." data-precio="60 USD" data-info="Harina de trigo refinada y de calidad premium, ideal para panadería, repostería y cocina en general. Asegura una textura suave y esponjosa en todas tus recetas.">
+              <img src="eca021f68c354e021b25ed6c09187066.jpg" alt="Saco de Harina (50kg)">
+              <div class="precio">$60.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Saco de Frijoles Negros (25kg) -->
+            <div class="producto" data-nombre="Frijoles negros seleccionados, libres de impurezas y con un alto valor nutricional. Perfectos para cocinar guisos, sopas o el clásico arroz con frijoles." data-precio="50 USD" data-info="Frijoles negros seleccionados, libres de impurezas y con un alto valor nutricional. Perfectos para cocinar guisos, sopas o el clásico arroz con frijoles.">
+              <img src="FB_IMG_1740937172858.jpg" alt="Saco de Frijoles Negros (50kg)">
+              <div class="precio">$50.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Pollo (10kg) -->
+            <div class="producto" data-nombre="Pollo fresco y de calidad garantizada, ideal para preparar recetas saludables y nutritivas. Perfecto para asar, freír o cocinar al horno." data-precio="45 USD" data-info="Pollo fresco y de calidad garantizada, ideal para preparar recetas saludables y nutritivas. Perfecto para asar, freír o cocinar al horno.">
+              <img src="FB_IMG_1740937178012.jpg" alt="Caja de Pollo (30kg)">
+              <div class="precio">$45.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Café (12 unidades) -->
+            <div class="producto" data-nombre="Café molido de aroma intenso y sabor inigualable. Cultivado en las mejores regiones y empacado para conservar su frescura. Perfecto para un buen inicio de día." data-precio="40 USD" data-info="Café molido de aroma intenso y sabor inigualable. Cultivado en las mejores regiones y empacado para conservar su frescura. Perfecto para un buen inicio de día.">
+              <img src="FB_IMG_1740937171549.jpg" alt="Caja de Café (12 unidades)">
+              <div class="precio">$40.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Refrescos (24 latas) -->
+            <div class="producto" data-nombre="Variedad de refrescos enlatados con sabores refrescantes. Perfectos para cualquier ocasión, con una calidad garantizada y excelente sabor." data-precio="25 USD" data-info="Variedad de refrescos enlatados con sabores refrescantes. Perfectos para cualquier ocasión, con una calidad garantizada y excelente sabor.">
+              <img src="FB_IMG_1740937192114.jpg" alt="Caja de Refrescos (24 latas)">
+              <div class="precio">$25.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Cartón de Huevo (30 unidades) -->
+            <div class="producto" data-nombre="Huevos frescos y seleccionados, con una cáscara fuerte y un alto contenido de proteínas. Ideales para el desayuno o cualquier receta." data-precio="8 USD" data-info="Huevos frescos y seleccionados, con una cáscara fuerte y un alto contenido de proteínas. Ideales para el desayuno o cualquier receta.">
+              <img src="FB_IMG_1740937190471.jpg" alt="Cartón de Huevo (30 unidades)">
+              <div class="precio">$8.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Saco de Frijoles Colorados (25kg) -->
+            <div class="producto" data-nombre="Frijoles colorados de excelente calidad, cultivados en condiciones óptimas. Perfectos para preparar guisos, sopas y ensaladas, con un sabor delicioso y nutritivo." data-precio="60 USD" data-info="Frijoles colorados de excelente calidad, cultivados en condiciones óptimas. Perfectos para preparar guisos, sopas y ensaladas, con un sabor delicioso y nutritivo.">
+              <img src="FB_IMG_1740937174355.jpg" alt="Saco de Frijoles Colorados (50kg)">
+              <div class="precio">$60.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de carne de 50kg -->
+            <div class="producto" data-nombre="Caja de carne de res de 50kg, seleccionada y empacada al vacío para garantizar frescura y calidad. Ideal para negocios de comida o eventos especiales." data-precio="200" data-info="Caja de carne de res de 50kg, seleccionada y empacada al vacío para garantizar frescura y calidad. Ideal para negocios de comida o eventos especiales.">
+              <img src="IMG-20250314-WA0103.jpg" alt="Caja de carne de 50kg">
+              <div class="precio">$150.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Saco de Chícharo (25kg) -->
+            <div class="producto" data-nombre="Chícharos secos de la mejor calidad, ideales para sopas, guisos o ensaladas. Con un sabor fresco y suave, aportan nutrientes esenciales a tu dieta." data-precio="50 USD" data-info="Chícharos secos de la mejor calidad, ideales para sopas, guisos o ensaladas. Con un sabor fresco y suave, aportan nutrientes esenciales a tu dieta.">
+              <img src="FB_IMG_1740937180253.jpg" alt="Saco de Chícharo (50kg)">
+              <div class="precio">$45.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Picadillo (10kg) -->
+            <div class="producto" data-nombre="Picadillo de res de alta calidad, listo para cocinar y disfrutar en una variedad de platos. Su textura jugosa y su sabor intenso lo hacen perfecto para guisos y tacos." data-precio="25 USD" data-info="Picadillo de res de alta calidad, listo para cocinar y disfrutar en una variedad de platos. Su textura jugosa y su sabor intenso lo hacen perfecto para guisos y tacos.">
+              <img src="FB_IMG_1740937186305.jpg" alt="Caja de Picadillo (15kg)">
+              <div class="precio">$25.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Salchicha (5kg) -->
+            <div class="producto" data-nombre="Salchichas frescas de excelente calidad, ideales para cualquier tipo de receta rápida o parrillada. Con una textura suave y un sabor delicioso, son perfectas para toda la familia." data-precio="30 USD" data-info="Salchichas frescas de excelente calidad, ideales para cualquier tipo de receta rápida o parrillada. Con una textura suave y un sabor delicioso, son perfectas para toda la familia.">
+              <img src="FB_IMG_1740937184777.jpg" alt="Caja de Salchicha (12 Paquetes, 12 unidades cada paquete)">
+              <div class="precio">$30.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Paquete de Leche en Polvo (2kg) -->
+            <div class="producto" data-nombre="Leche en polvo fortificada, ideal para todo tipo de preparación. Su sabor y cremosidad la hacen perfecta para bebidas o recetas caseras. Alta en nutrientes, ideal para toda la familia." data-precio="10 USD" data-info="Leche en polvo fortificada, ideal para todo tipo de preparación. Su sabor y cremosidad la hacen perfecta para bebidas o recetas caseras. Alta en nutrientes, ideal para toda la familia.">
+              <img src="FB_IMG_1740937195099.jpg" alt="Paquete de Leche en Polvo (2kg)">
+              <div class="precio">$10.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Aceite (8 pomos de 1L) -->
+            <div class="producto" data-nombre="Aceite vegetal puro de alta calidad, ideal para cocinar, freír o aderezar. Su sabor neutro y su capacidad de soportar altas temperaturas lo hacen versátil en la cocina." data-precio="35 USD" data-info="Aceite vegetal puro de alta calidad, ideal para cocinar, freír o aderezar. Su sabor neutro y su capacidad de soportar altas temperaturas lo hacen versátil en la cocina.">
+              <img src="FB_IMG_1740937181864.jpg" alt="Caja de Aceite (8 pomos de 1L)">
+              <div class="precio">$35.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Caja de Mantequilla (10 unidades) -->
+            <div class="producto" data-nombre="Mantequilla de excelente calidad, ideal para repostería, cocinar o untar. Su textura suave y sabor cremoso la hacen perfecta para diversas recetas." data-precio="18 USD" data-info="Mantequilla de excelente calidad, ideal para repostería, cocinar o untar. Su textura suave y sabor cremoso la hacen perfecta para diversas recetas.">
+              <img src="FB_IMG_1740100717939.jpg" alt="Caja de Mantequilla (10 unidades)">
+              <div class="precio">$18.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Sofá moderno -->
+            <div class="producto" data-nombre="Sofá moderno y cómodo, ideal para salas de estar. Fabricado con materiales duraderos y tapizado en tela suave. Diseño ergonómico que se adapta a cualquier espacio." data-precio="120" data-info="Sofá moderno y cómodo, ideal para salas de estar. Fabricado con materiales duraderos y tapizado en tela suave. Diseño ergonómico que se adapta a cualquier espacio.">
+              <img src="SofaCamaVittorio06.webp" alt="Sofá moderno">
+              <div class="precio">$120.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Televisor Samsung de 32 pulgadas -->
+            <div class="producto" data-nombre="Televisor Samsung de 32 pulgadas con resolución Full HD, diseño moderno y delgado, ideal para disfrutar de tus películas y series favoritas con una calidad de imagen excepcional. Incluye puertos HDMI y USB para conectar tus dispositivos." data-precio="200" data-info="Televisor Samsung de 32 pulgadas con resolución Full HD, diseño moderno y delgado, ideal para disfrutar de tus películas y series favoritas con una calidad de imagen excepcional. Incluye puertos HDMI y USB para conectar tus dispositivos.">
+              <img src="descargar.jpg" alt="Televisor Samsung 32 pulgadas">
+              <div class="precio">$199.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- GN125 -->
+            <div class="producto" data-nombre="GN125 es una motocicleta clásica de 124cc con 11 HP, reconocida por su diseño vintage, economía de combustible y facilidad de manejo. Ideal para el uso urbano y trayectos diarios" data-precio="2099" data-info="GN125 es una motocicleta clásica de 124cc con 11 HP, reconocida por su diseño vintage, economía de combustible y facilidad de manejo. Ideal para el uso urbano y trayectos diarios." id="vehiculos">
+              <img src="28082022-PORTADA-Suzuki-GN-125-min.webp" alt="GN125">
+              <div class="precio">$2099.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Bicimot Eléctrica -->
+            <div class="producto" data-nombre="Bicimot Eléctrica es una bicicleta con motor eléctrico que ofrece una alternativa ecológica y económica para la movilidad urbana. Con una batería de larga duración, permite recorrer grandes distancias sin esfuerzo. Su diseño ligero y ergonómico brinda una conducción cómoda y eficiente. Ideal para quienes buscan un transporte sostenible y accesible" data-precio="899" data-info="La Bicimot Eléctrica es una bicicleta con motor eléctrico que ofrece una alternativa ecológica y económica para la movilidad urbana. Con una batería de larga duración, permite recorrer grandes distancias sin esfuerzo. Su diseño ligero y ergonómico brinda una conducción cómoda y eficiente. Ideal para quienes buscan un transporte sostenible y accesible.">
+              <img src="61222aa80673d4b0879a291ee4945de7.jpg" alt="Bicimot Eléctrica">
+              <div class="precio">$899.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Estación de energía 1000W -->
+            <div class="producto" data-nombre="Estación de energía portátil de 1000W, perfecta para emergencias o actividades al aire libre. Con capacidad para cargar dispositivos electrónicos, herramientas y electrodomésticos pequeños. Incluye puertos USB, AC y DC." data-precio="500" data-info="Estación de energía portátil de 1000W, perfecta para emergencias o actividades al aire libre. Con capacidad para cargar dispositivos electrónicos, herramientas y electrodomésticos pequeños. Incluye puertos USB, AC y DC." id="combos">
+              <img src="cf0ebcf2c27e24a1fac4e63bdc0e8082.jpg" alt="Estación de energía 1000W">
+              <div class="precio">$499.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Suzuki X100 -->
+            <div class="producto" data-nombre="Suzuki X100 es una motocicleta de 100cc, reconocida por su diseño compacto y ágil, ideal para principiantes y desplazamientos urbanos. Ofrece un rendimiento eficiente y facilidad de manejo" data-precio="1799" data-info="La Suzuki X100 es una motocicleta de 100cc, reconocida por su diseño compacto y ágil, ideal para principiantes y desplazamientos urbanos. Ofrece un rendimiento eficiente y facilidad de manejo.">
+              <img src="9669a60265203ef9a3f5750e0c0b01dd.jpg" alt="Suzuki X100">
+              <div class="precio">$1799.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Planta eléctrica de 2000W -->
+            <div class="producto" data-nombre="Planta eléctrica portátil de 2000W, ideal para emergencias o uso en zonas rurales. Cuenta con un motor silencioso y eficiente, salidas de 120V y 220V, y un diseño compacto para fácil transporte." data-precio="450" data-info="Planta eléctrica portátil de 2000W, ideal para emergencias o uso en zonas rurales. Cuenta con un motor silencioso y eficiente, salidas de 120V y 220V, y un diseño compacto para fácil transporte.">
+              <img src="b82ef87059471cfb374c5471d549d850.jpg" alt="Planta eléctrica 2000W">
+              <div class="precio">$450.00 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Planta eléctrica de 5000W -->
+            <div class="producto" data-nombre="Planta eléctrica de 5000W, perfecta para hogares o pequeños negocios. Con motor de alta eficiencia, arranque eléctrico, salidas de 120V y 220V, y un tanque de combustible de gran capacidad para largas horas de funcionamiento." data-precio="700" data-info="Planta eléctrica de 5000W, perfecta para hogares o pequeños negocios. Con motor de alta eficiencia, arranque eléctrico, salidas de 120V y 220V, y un tanque de combustible de gran capacidad para largas horas de funcionamiento.">
+              <img src="b5066fce7f515367801b2112236f706e.jpg" alt="Planta eléctrica 5000W">
+              <div class="precio">$699.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Planta eléctrica de 10000W -->
+            <div class="producto" data-nombre="Planta eléctrica industrial de 10000W, diseñada para uso intensivo en obras o grandes establecimientos. Con motor diésel de alto rendimiento, panel de control digital, y protección contra sobrecargas." data-precio="900" data-info="Planta eléctrica industrial de 10000W, diseñada para uso intensivo en obras o grandes establecimientos. Con motor diésel de alto rendimiento, panel de control digital, y protección contra sobrecargas.">
+              <img src="763d44c1acee255c3bfadd195bfca071.jpg" alt="Planta eléctrica 10000W">
+              <div class="precio">$899.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Italica 125 -->
+            <div class="producto" data-nombre="Italica 125 es una motocicleta de 125cc que destaca por su diseño moderno, robustez y eficiencia en el consumo de combustible. Es una opción económica y confiable para el uso diario en entornos urbanos, ofreciendo comodidad y buen rendimiento" data-precio="2399" data-info="La Italica 125 es una motocicleta de 125cc que destaca por su diseño moderno, robustez y eficiencia en el consumo de combustible. Es una opción económica y confiable para el uso diario en entornos urbanos, ofreciendo comodidad y buen rendimiento.">
+              <img src="8dd258cb9f70a327050cb03a83cc89b7.jpg" alt="Italica 125">
+              <div class="precio">$2399.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Triciclo eléctrico -->
+            <div class="producto" data-nombre="Triciclo eléctrico de alta eficiencia, perfecto para transporte personal o de carga ligera. Cuenta con un motor eléctrico silencioso, batería de larga duración, y un diseño ergonómico para mayor comodidad. Ideal para moverse en la ciudad de manera ecológica y económica." data-precio="3100" data-info="Triciclo eléctrico de alta eficiencia, perfecto para transporte personal o de carga ligera. Cuenta con un motor eléctrico silencioso, batería de larga duración, y un diseño ergonómico para mayor comodidad. Ideal para moverse en la ciudad de manera ecológica y económica.">
+              <img src="da3dfa6f5ae596dcccb1c41795c4110c.jpg" alt="Triciclo eléctrico">
+              <div class="precio">$3099.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+            <!-- Carrito de golf -->
+            <div class="producto" data-nombre="Carrito de golf eléctrico, perfecto para desplazarse en el campo de golf con comodidad y estilo. Cuenta con un motor silencioso, asientos cómodos y un diseño compacto para facilitar su transporte." data-precio="999" data-info="Carrito de golf eléctrico, perfecto para desplazarse en el campo de golf con comodidad y estilo. Cuenta con un motor silencioso, asientos cómodos y un diseño compacto para facilitar su transporte.">
+              <img src="IMG-20250316-WA0086.jpg" alt="Carrito de golf">
+              <div class="precio">$999.99 USD</div>
+              <div class="botones">
+                  <button class="agregar-carrito">Agregar al carrito</button>
+                  <button class="detalles">Detalles</button>
+              </div>
+            </div>
+            
+          </div>
+        </section>
+        
+            
+          </main>
+          
+          <div id="cartel-detalles" class="cartel-detalles">
+            <p id="info-producto"></p>
+            <button onclick="cerrarCartel()">Cerrar</button>
+          </div>
+        
+        
+        
+        
+        
+        
+  
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 CubaMax. Todos los derechos reservados.</p>
+  <p><a href="#">Política de privacidad</a> | <a href="#">Términos y condiciones</a></p>
+</footer>
+  
+  <script>
+    document.querySelectorAll(".agregar-carrito").forEach(boton => {
+      boton.addEventListener("click", function () {
+        let producto = this.closest(".producto");
+        let nombre = producto.getAttribute("data-nombre");
+        let precio = producto.getAttribute("data-precio");
+  
+        // Redirigir a la calculadora con los datos del producto
+        window.location.href = `calculadora.html?nombre=${encodeURIComponent(nombre)}&precio=${encodeURIComponent(precio)}`;
+      });
+    });
+  
+    document.querySelectorAll(".detalles").forEach(boton => {
+      boton.addEventListener("click", function () {
+        let producto = this.closest(".producto");
+        let nombre = producto.getAttribute("data-nombre");
+        let precio = producto.getAttribute("data-precio");
+  
+        document.getElementById("info-producto").textContent = `Detalles de ${nombre}: Precio ${precio}`;
+        let cartel = document.getElementById("cartel-detalles");
+        cartel.style.display = "block";
+        cartel.style.animation = "fadeIn 0.3s forwards";
+      });
+    });
+  
+    function cerrarCartel() {
+      let cartel = document.getElementById("cartel-detalles");
+      cartel.style.animation = "fadeOut 0.3s forwards";
+      setTimeout(() => {
+        cartel.style.display = "none";
+      }, 300);
+    }
+  </script>
+</body>
+</html>
